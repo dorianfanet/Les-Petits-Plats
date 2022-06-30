@@ -151,28 +151,17 @@ function filterActivation() {
   })
 }
 
-// results list
-// create recipes cards using factory
-function displayRecipes(recipes) {
-
-  const containerUl = document.querySelector('ul.results-list');
-
-  recipes.forEach((recipe) => {
-    const recipeCard = recipesFactory(recipe).DOM();
-    containerUl.appendChild(recipeCard)
-  })
-}
-
 async function init() {
   const { recipes } = await getData();
 
   console.log(recipes)
 
-  displayRecipes(recipes)
-
-  let loweredRecipes = JSON.parse(JSON.stringify(recipes, function(a, b) {
+  const loweredRecipes = JSON.parse(JSON.stringify(recipes, function(a, b) {
     return typeof b === "string" ? b.toLowerCase() : b
   }));
+
+  searchRecipes(recipes)
+
   createFilters(loweredRecipes)
 
   filterActivation()

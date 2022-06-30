@@ -82,27 +82,6 @@ function recipesFactory(data) {
     figure.appendChild(img)
     figure.appendChild(figcaption)
 
-    // container.innerHTML = `
-    // <a href="">
-    //   <figure>
-    //     <img src="assets/images/blank.png" alt="">
-    //     <figcaption>
-    //       <div class="card-header">
-    //         <h2>${name}</h2>
-    //         <div>
-    //           <i class="fas fa-clock"></i>
-    //           <span>${time} min</span>
-    //         </div>
-    //       </div>
-    //       <div class="description">
-    //         <ul>
-    //         </ul>
-    //         <p>${description}</p>
-    //       </div>
-    //     </figcaption>
-    //   </figure>
-    // </a>`
-
     return container
   }
 
