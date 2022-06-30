@@ -32,46 +32,41 @@ function searchRecipes(recipes) {
     let filteredRecipes = JSON.parse(JSON.stringify(recipes));
 
     if (value.length > 2) {
+      // let spliceCount = 0;
 
       // check titles
-      for (let recipeIndex = 0; recipeIndex < recipes.length; recipeIndex++) {
-        const normalizedRecipe = recipeNormalizer(recipes[recipeIndex]);
+      recipes.filter((recipe) => {
+        const normalizedRecipe = recipeNormalizer(recipe);
         if (normalizedRecipe.name.includes(value)) {
-          generateRecipe(recipes[recipeIndex])
-          filteredRecipes = filteredRecipes.filter(filteredRecipe => filteredRecipe.name !== recipes[recipeIndex].name)
+          generateRecipe(recipe)
+          filteredRecipes = filteredRecipes.filter(filteredRecipe => filteredRecipe.name !== recipe.name)
         }
-      }
+      })
 
-      console.log(filteredRecipes)
-
-      let tempFiltered = filteredRecipes;
       // check ingredients
-      for (let recipeIndex = 0; recipeIndex < tempFiltered.length; recipeIndex++) {
-        const normalizedRecipe = recipeNormalizer(tempFiltered[recipeIndex]);
-        
+      filteredRecipes.filter((recipe) => {
+        const normalizedRecipe = recipeNormalizer(recipe);
+
         let ignoreNextIngredients = false;
 
         normalizedRecipe.ingredients.forEach((ingredient) => {
           if (ingredient.ingredient.includes(value) && !ignoreNextIngredients) {
-            generateRecipe(tempFiltered[recipeIndex])
-            filteredRecipes = filteredRecipes.filter(filteredRecipe => filteredRecipe.name !== tempFiltered[recipeIndex].name)
-            
+            generateRecipe(recipe)
+            filteredRecipes = filteredRecipes.filter(filteredRecipe => filteredRecipe.description !== recipe.description)
+
             ignoreNextIngredients = true;
           }
         })
-      }
+      })
 
-      console.log(filteredRecipes)
-
-      tempFiltered = filteredRecipes;
-      // check description
-      for (let recipeIndex = 0; recipeIndex < tempFiltered.length; recipeIndex++) {
-        const normalizedRecipe = recipeNormalizer(tempFiltered[recipeIndex]);
+      // check descriptions
+      filteredRecipes.filter((recipe) => {
+        const normalizedRecipe = recipeNormalizer(recipe);
         if (normalizedRecipe.description.includes(value)) {
-          generateRecipe(tempFiltered[recipeIndex])
-          filteredRecipes = filteredRecipes.filter(filteredRecipe => filteredRecipe.description !== recipes[recipeIndex].description)
+          generateRecipe(recipe)
+          filteredRecipes = filteredRecipes.filter(filteredRecipe => filteredRecipe.description !== recipe.description)
         }
-      }
+      })
 
     } else {
       generateRecipes(recipes)
