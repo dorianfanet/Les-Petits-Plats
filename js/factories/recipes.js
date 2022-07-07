@@ -1,10 +1,13 @@
-function recipesFactory(data) {
+function recipesFactory(data, ignoredParameter, sortRecipe) {
 
   const { name, description, time, ingredients } = data;
 
   function DOM() {
     const container = document.createElement('li');
-    container.classList.add('recipe-card')
+    container.classList.add('recipe-card');
+    if (sortRecipe) {
+      container.style.order = -1;
+    }
 
     const a = document.createElement('a');
 
@@ -70,6 +73,12 @@ function recipesFactory(data) {
 
     const descP = document.createElement('p');
     descP.textContent = description;
+
+    if (ignoredParameter) {
+      const ignored = document.createElement('span');
+      ignored.textContent = ignoredParameter;
+      container.appendChild(ignored)
+    }
 
     desc.appendChild(descUl)
     desc.appendChild(descP)

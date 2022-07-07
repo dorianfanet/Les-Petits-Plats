@@ -21,7 +21,7 @@
       </div>
       <div class="search">
         <img src="assets/images/logo.svg" alt="Logo de Les petits plats">
-        <input type="text" class="search-input" placeholder="Rechercher une recette">
+        <input class="search-input" type="text" placeholder="Rechercher une recette">
       </div>
       <div class="active-filter">
         <ul></ul>
@@ -63,11 +63,14 @@
         </div>
     </header>
     <section class="results">
+      <div class="results-message"></div>
       <ul class="results-list">
         </ul>
     </section>
   </div>
   <script src="js/utils/getData.js"></script>
+  <script src="js/utils/recipeNormalizer.js"></script>
+  <script src="js/utils/generateRecipes.js"></script>
   <script src="js/utils/search.js"></script>
   <script src="js/factories/recipes.js"></script>
   <script src="js/pages/index.js"></script>
