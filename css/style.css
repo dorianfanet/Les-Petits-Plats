@@ -2,6 +2,9 @@
   --animation-length: 300ms;
 }
 
+*{
+  font-family: 'Lato', sans-serif;
+}
 body{
   margin: 0;
   font-family: 'Lato', sans-serif;
@@ -29,6 +32,7 @@ input{
 header{
   padding: 32px 0 5px 0;
   position: fixed;
+  z-index: 50;
   background-color: white;
   top: 0;
   left: 0;
@@ -109,6 +113,15 @@ header .active-filter ul li{
   cursor: pointer;
   text-transform: capitalize;
   display: flex;
+  animation: show 200ms ease forwards;
+}
+@keyframes show {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
 }
 header .active-filter ul li.ingredient{
   background-color: #3282F7;
@@ -294,6 +307,17 @@ header.shrink .active-filter{
 .results{
   margin-top: 340px;
   transition: margin-top var(--animation-length) ease;
+  padding-bottom: 50px;
+}
+.results > .results-message{
+  font-size: 24px;
+  font-weight: 600;
+  color: #D04F4F;
+  padding-top: 20px;
+}
+.results .results-message p:nth-child(2){
+  margin-top: 80px;
+  color: black;
 }
 .results.filtered{
   margin-top: 395px;
@@ -303,6 +327,7 @@ header.shrink .active-filter{
 }
 .results.shrink{
   margin-top: 144px;
+  padding-bottom: 250px;
 }
 .results-list{
   width: 100%;
@@ -311,12 +336,26 @@ header.shrink .active-filter{
   grid-auto-rows: 364px;
   grid-gap: 50px;
 }
+
+
 .recipe-card{
   background-color: #e7e7e7;
   border-radius: 5px;
   overflow: hidden;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
 }
-
+.recipe-card > span {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #e7e7e7;
+  padding: 2px 7px;
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-decoration: line-through;
+}
 .recipe-card figure{
   margin: 0;
   width: 100%;
