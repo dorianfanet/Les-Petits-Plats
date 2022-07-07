@@ -1,10 +1,13 @@
-function recipesFactory(data) {
+function recipesFactory(data, ignoredParameter, sortRecipe) {
 
   const { name, description, time, ingredients } = data;
 
   function DOM() {
     const container = document.createElement('li');
-    container.classList.add('recipe-card')
+    container.classList.add('recipe-card');
+    if (sortRecipe) {
+      container.style.order = -1;
+    }
 
     const a = document.createElement('a');
 
@@ -71,6 +74,12 @@ function recipesFactory(data) {
     const descP = document.createElement('p');
     descP.textContent = description;
 
+    if (ignoredParameter) {
+      const ignored = document.createElement('span');
+      ignored.textContent = ignoredParameter;
+      container.appendChild(ignored)
+    }
+
     desc.appendChild(descUl)
     desc.appendChild(descP)
 
@@ -81,6 +90,27 @@ function recipesFactory(data) {
     a.appendChild(figure)
     figure.appendChild(img)
     figure.appendChild(figcaption)
+
+    // container.innerHTML = `
+    // <a href="">
+    //   <figure>
+    //     <img src="assets/images/blank.png" alt="">
+    //     <figcaption>
+    //       <div class="card-header">
+    //         <h2>${name}</h2>
+    //         <div>
+    //           <i class="fas fa-clock"></i>
+    //           <span>${time} min</span>
+    //         </div>
+    //       </div>
+    //       <div class="description">
+    //         <ul>
+    //         </ul>
+    //         <p>${description}</p>
+    //       </div>
+    //     </figcaption>
+    //   </figure>
+    // </a>`
 
     return container
   }
