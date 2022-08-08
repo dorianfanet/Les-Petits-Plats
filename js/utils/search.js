@@ -34,9 +34,10 @@ function filterRecipes(recipes) {
   filterEngine(filters)
 
   function filterEngine(filters, ignoredParameter) {
+    let searchResult = [];
+    let sortRecipe = false;
     for (let i = 0; i < recipes.length; i++) {
       const normalizedRecipe = recipeNormalizer(recipes[i]);
-      let sortRecipe = false;
   
       let filtersValidation = [];
 
@@ -106,16 +107,22 @@ function filterRecipes(recipes) {
       }
 
       if (result) {
-        generateRecipe(recipes[i], containerUl, ignoredParameter, sortRecipe);
+        searchResult.push(recipes[i])
       }
     }
+    generateRecipes(searchResult, ignoredParameter, sortRecipe)
   }
 
   if (containerUl.innerHTML === '') {
-    containerUl.parentElement.querySelector('div').innerHTML = '<p>Aucune recette ne correspond à vos critères… </br></br>Vous pouvez chercher « tarte aux pommes », « poisson », etc...</p><p>Ces autres recettes peuvent cependant vous intéresser :</p>';
-    containerUl.innerHTML = '';
-    const alternateFilters = JSON.parse(JSON.stringify(filters));
-    alternateFilters.splice(alternateFilters.findIndex((e) => e.type === 'search'), 1)
-    filterEngine(alternateFilters, filters.find((e) => e.type === 'search').name)
+    if (filters.find((e) => e.type === 'search').name.length > 2) {
+      containerUl.parentElement.querySelector('div').innerHTML = '<p>Aucune recette ne correspond à vos critères… </br></br>Vous pouvez chercher « tarte aux pommes », « poisson », etc...</p><p>Ces autres recettes peuvent cependant vous intéresser :</p>';
+      containerUl.innerHTML = '';
+      const alternateFilters = JSON.parse(JSON.stringify(filters));
+      alternateFilters.splice(alternateFilters.findIndex((e) => e.type === 'search'), 1)
+      console.log(alternateFilters)
+      filterEngine(alternateFilters, filters.find((e) => e.type === 'search').name)
+    } else {
+      containerUl.parentElement.querySelector('div').innerHTML = '<p>Aucune recette ne correspond à vos critères… </br></br>Vous pouvez chercher « tarte aux pommes », « poisson », etc...</p>';
+    }
   }
 }
