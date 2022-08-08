@@ -34,20 +34,22 @@ function filterRecipes(recipes) {
   filterEngine(filters)
 
   function filterEngine(filters, ignoredParameter) {
-    recipes.forEach((recipe) => {
+    const searchResult = recipes.filter((recipe) => {
       const normalizedRecipe = recipeNormalizer(recipe);
       let sortRecipe = false;
   
       if (filters.every((item) => {
         if (item.type === 'search') {
           if (normalizedRecipe.name.includes(item.name)) {
+            console.log('name')
             sortRecipe = true;
             return true
           } else if (normalizedRecipe.description.includes(item.name)) {
+            console.log('desc')
             return true
           }
         }
-        if (item.type === 'ingredient') {
+        if (item.type === 'ingredient' || item.type === 'search') {
           let ignoreNextIngredients = false;
   
           let isIngredientTrue = false;
@@ -61,6 +63,7 @@ function filterRecipes(recipes) {
           })
   
           if (isIngredientTrue) {
+            console.log('ing')
             return true
           }
         }
@@ -86,16 +89,22 @@ function filterRecipes(recipes) {
           }
         }
       })) {
-        generateRecipe(recipe, containerUl, ignoredParameter, sortRecipe);
+        return recipe
       }
     });
+    generateRecipes(searchResult)
   }
 
   if (containerUl.innerHTML === '') {
-    containerUl.parentElement.querySelector('div').innerHTML = '<p>Aucune recette ne correspond à vos critères… </br></br>Vous pouvez chercher « tarte aux pommes », « poisson », etc...</p><p>Ces autres recettes peuvent cependant vous intéresser :</p>';
-    containerUl.innerHTML = '';
-    const alternateFilters = JSON.parse(JSON.stringify(filters));
-    alternateFilters.splice(alternateFilters.findIndex((e) => e.type === 'search'), 1)
-    filterEngine(alternateFilters, filters.find((e) => e.type === 'search').name)
+    if (filters.find((e) => e.type === 'search').name.length > 2) {
+      containerUl.parentElement.querySelector('div').innerHTML = '<p>Aucune recette ne correspond à vos critères… </br></br>Vous pouvez chercher « tarte aux pommes », « poisson », etc...</p><p>Ces autres recettes peuvent cependant vous intéresser :</p>';
+      containerUl.innerHTML = '';
+      const alternateFilters = JSON.parse(JSON.stringify(filters));
+      alternateFilters.splice(alternateFilters.findIndex((e) => e.type === 'search'), 1)
+      console.log(alternateFilters)
+      filterEngine(alternateFilters, filters.find((e) => e.type === 'search').name)
+    } else {
+      containerUl.parentElement.querySelector('div').innerHTML = '<p>Aucune recette ne correspond à vos critères… </br></br>Vous pouvez chercher « tarte aux pommes », « poisson », etc...</p>';
+    }
   }
 }
