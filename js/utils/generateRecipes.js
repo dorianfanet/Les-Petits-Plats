@@ -1,7 +1,7 @@
-function generateRecipes(data){
+function generateRecipes(data, ignoredParameter, sortRecipe){
   const containerUl = document.querySelector('ul.results-list');
   data.forEach((recipe) => {
-    generateRecipe(recipe, containerUl)
+    generateRecipe(recipe, containerUl, ignoredParameter, sortRecipe)
   })
 }
 
