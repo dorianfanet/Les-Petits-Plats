@@ -88,6 +88,14 @@ header .search img{
   transition: opacity 100ms ease;
   z-index: -1;
 }
+header .search i{
+  position: absolute;
+  right: 17px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+}
+
 
 header .active-filter{
   position: absolute;
@@ -172,6 +180,10 @@ header .sort-btn button input::placeholder{
 header .sort-btn button input:focus{
   outline: 0;
 }
+header .sort-btn button i{
+  transition: all var(--animation-length) ease;
+}
+
 header .sort-btn .list ul{
   color: white;
   width: inherit;
@@ -239,6 +251,10 @@ header .sort-btn.active button span{
 header .sort-btn.active button input{
   display: block;
 }
+header .sort-btn.active button i{
+  transform: rotate(180deg);
+}
+
 header .sort-btn.active .list ul{
   display: grid;
   text-transform: capitalize;
